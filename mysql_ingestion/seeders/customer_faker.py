@@ -1,27 +1,23 @@
-from faker import Faker
-
 from mysql_ingestion.seeders.base_faker import BaseFaker
 
 
 class CustomerFaker(BaseFaker):
     def __init__(self, connection):
         super().__init__(connection)
-        self.__connection = connection
-        self.__fake = Faker()
 
     def fill_data(self):
-        connection = self.__connection.get_connection()
+        connection = self._connection.get_connection()
         with connection.cursor() as cursor:
             for _ in range(self._size):
-                first_name = self.__fake.first_name()
-                last_name = self.__fake.last_name()
-                email = self.__fake.email()
-                phone = self.__fake.phone_number()[:20]
-                address = self.__fake.address()
-                customer_since = self.__fake.date_between(
+                first_name = self._faker.first_name()
+                last_name = self._faker.last_name()
+                email = self._faker.email()
+                phone = self._faker.phone_number()[:20]
+                address = self._faker.address()
+                customer_since = self._faker.date_between(
                     start_date="-5y", end_date="today"
                 )
-                is_active = self.__fake.boolean()
+                is_active = self._faker.boolean()
 
                 cursor.execute(
                     """

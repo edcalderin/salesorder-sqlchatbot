@@ -1,26 +1,20 @@
 import random
 
-from faker import Faker
-
 from mysql_ingestion.seeders.base_faker import BaseFaker
 
 
 class ProductFaker(BaseFaker):
     def __init__(self, connection):
         super().__init__(connection)
-        self.__connection = connection
-        self.__fake = Faker()
 
     def fill_data(self):
-        connection = self.__connection.get_connection()
+        connection = self._connection.get_connection()
         with connection.cursor() as cursor:
             for _ in range(self._size):
-                product_name = (
-                    self.__fake.word().capitalize()
-                    + " "
-                    + self.__fake.word().capitalize()
-                )
-                description = self.__fake.sentence(nb_words=10)
+                product_name = f"{self._faker.word().capitalize()}"
+                f" {self._faker.word().capitalize()}"
+
+                description = self._faker.sentence(nb_words=10)
                 unit_price = round(
                     random.uniform(10, 500), 2
                 )  # Random price between $10 and $500

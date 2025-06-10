@@ -1,18 +1,14 @@
 import random
 
-from faker import Faker
-
 from mysql_ingestion.seeders.base_faker import BaseFaker
 
 
 class InventoryLogFaker(BaseFaker):
     def __init__(self, connection):
         super().__init__(connection)
-        self.__connection = connection
-        self.__fake = Faker()
 
     def fill_data(self):
-        connection = self.__connection.get_connection()
+        connection = self._connection.get_connection()
         with connection.cursor() as cursor:
             # Fetch Product IDs
             cursor.execute("SELECT ProductID FROM Product")
@@ -20,7 +16,7 @@ class InventoryLogFaker(BaseFaker):
 
             for _ in range(self._size):
                 product_id = random.choice(product_ids)  # Randomly select a product ID
-                change_date = self.__fake.date_between(
+                change_date = self._faker.date_between(
                     start_date="-1y", end_date="today"
                 )
                 quantity_change = random.randint(

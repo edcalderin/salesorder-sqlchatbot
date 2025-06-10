@@ -6,10 +6,9 @@ from mysql_ingestion.seeders.base_faker import BaseFaker
 class SalesOrderLineItemFaker(BaseFaker):
     def __init__(self, connection):
         super().__init__(connection)
-        self.__connection = connection
 
     def fill_data(self):
-        connection = self.__connection.get_connection()
+        connection = self._connection.get_connection()
         with connection.cursor() as cursor:
             # Fetch product IDs
             cursor.execute("SELECT ProductID FROM Product")

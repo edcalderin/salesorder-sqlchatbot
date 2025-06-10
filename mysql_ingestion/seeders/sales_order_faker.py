@@ -1,25 +1,21 @@
 import random
 from datetime import timedelta
 
-from faker import Faker
-
 from mysql_ingestion.seeders.base_faker import BaseFaker
 
 
 class SalesOrderFaker(BaseFaker):
     def __init__(self, connection):
         super().__init__(connection)
-        self.__connection = connection
-        self.__fake = Faker()
 
     def fill_data(self):
-        connection = self.__connection.get_connection()
+        connection = self._connection.get_connection()
         with connection.cursor() as cursor:
             cursor.execute("SELECT CustomerID FROM Customer")
             customer_ids: list = [id[0] for id in cursor.fetchall()]
             for _ in range(self._size):
                 customer_id = random.choice(customer_ids)
-                order_date = self.__fake.date_between(
+                order_date = self._faker.date_between(
                     start_date="-2y", end_date="today"
                 )
                 required_date = order_date + timedelta(days=random.randint(1, 30))
