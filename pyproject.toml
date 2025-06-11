@@ -7,7 +7,8 @@ authors = [
 ]
 license = {text = "Apache License 2.0"}
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12.9"
+
 dependencies = [
     "langchain-core (>=0.3.64,<0.4.0)",
     "langchain-openai (>=0.3.21,<0.4.0)",
@@ -15,6 +16,7 @@ dependencies = [
     "faker (>=37.3.0,<38.0.0)",
     "mysql-connector-python (>=9.3.0,<10.0.0)",
     "streamlit (>=1.45.1,<2.0.0)",
+    "langchain-community (>=0.3.25,<0.4.0)",
 ]
 
 

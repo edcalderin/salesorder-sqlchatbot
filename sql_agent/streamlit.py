@@ -1,5 +1,10 @@
 import streamlit as st
 
+from sql_agent import SQLAgent
+
+sql_agent = SQLAgent()
+executor = sql_agent.create_agent_executor()
+
 st.title("SQL Chatbot")
 
 # User input
@@ -11,6 +16,7 @@ if st.button("Submit"):
     try:
         # Processing user input
         st.write("Response:")
-        st.json("Example response")
+        response = executor.invoke({"input": user_query})
+        st.json(response)
     except Exception as e:
         st.error(f"An error occurred: {e}")
