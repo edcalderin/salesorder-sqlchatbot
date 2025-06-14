@@ -1,0 +1,26 @@
+
+[
+    {"input": "List all customers.", "query": "SELECT * FROM Customer;"},
+    {"input": "Find all orders placed by customer with ID 1.",
+     "query": "SELECT * FROM SalesOrder WHERE CustomerID = 1;"},
+    {"input": "List all products currently in stock.",
+     "query": "SELECT * FROM Product WHERE StockQuantity > 0;"},
+    {"input": "Find the supplier for product with ID 10.",
+     "query": "SELECT s.CompanyName FROM Supplier s JOIN Product p ON s.SupplierID = p.SupplierID WHERE p.ProductID = 10;"},
+    {"input": "List the sales orders that have not been shipped yet.",
+     "query": "SELECT * FROM SalesOrder WHERE Status = 'Pending';"},
+    {"input": "How many employees work in the sales department?",
+     "query": "SELECT COUNT(*) FROM Employee WHERE Position LIKE '%sales%';"},
+    {"input": "List the top 5 most sold products.",
+     "query": "SELECT ProductID, SUM(Quantity) AS TotalQuantity FROM LineItem GROUP BY ProductID ORDER BY TotalQuantity DESC LIMIT 5;"},
+    {"input": "Find the total sales amount for orders completed this year.",
+     "query": "SELECT SUM(TotalPrice) FROM SalesOrder WHERE YEAR(OrderDate) = YEAR(CURDATE()) AND Status = 'Completed';"},
+    {"input": "List all suppliers from 'New York'.",
+     "query": "SELECT * FROM Supplier WHERE Address LIKE '%New York%';"},
+    {"input": "How many products are low on stock (below reorder level)?",
+     "query": "SELECT COUNT(*) FROM Product WHERE StockQuantity < ReorderLevel;"},
+    {"input": "List all orders made by customer named 'John Doe'.",
+     "query": "SELECT so.* FROM SalesOrder so JOIN Customer c ON so.CustomerID = c.CustomerID WHERE c.FirstName = 'John' AND c.LastName = 'Doe';"},
+    {"input": "Show inventory logs for product with ID 20.",
+     "query": "SELECT * FROM InventoryLog WHERE ProductID = 20;"}
+]
