@@ -10,3 +10,10 @@ services:
       - ${MYSQL_PORT}:3306
     volumes:
       - ./mysql_init:/docker-entrypoint-initdb.d
+
+  sql-agent:
+      build: .
+      env_file:
+        - .env
+      ports:
+        - ${STREAMLIT_PORT}:8501
