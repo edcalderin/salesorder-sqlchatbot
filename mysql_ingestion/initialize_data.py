@@ -19,7 +19,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 load_dotenv()
 
 connection = Connection(
-    host=os.getenv("MYSQL_HOST"),
+    host="localhost",
     port=os.getenv("MYSQL_PORT"),
     database=os.getenv("MYSQL_DATABASE"),
     user=os.getenv("MYSQL_USER"),
