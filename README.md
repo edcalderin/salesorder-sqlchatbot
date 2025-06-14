@@ -38,8 +38,8 @@ This enables reusability and debugging of specific prompt components.
 
 ### Clone the repository
 ```bash
-git clone https://github.com/edcalderin/LLMSql.git
-cd LLMSql
+git clone https://github.com/edcalderin/Salesorder_SQlChatbot.git
+cd Salesorder_SQlChatbot
 ```
 
 ### Development workflow
