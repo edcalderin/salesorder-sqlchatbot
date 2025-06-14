@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 from langchain.chains.sql_database.query import create_sql_query_chain
 from langchain_community.tools import QuerySQLDatabaseTool
 from langchain_community.utilities.sql_database import SQLDatabase
+from langchain_community.vectorstores import FAISS
+from langchain_core.example_selectors import SemanticSimilarityExampleSelector
 from langchain_core.messages import SystemMessage
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import (
@@ -15,7 +17,7 @@ from langchain_core.prompts import (
     HumanMessagePromptTemplate,
 )
 from langchain_core.runnables import RunnableLambda, RunnableSequence
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 load_dotenv()
 
@@ -49,6 +51,15 @@ class SQLAgent:
     def __get_table_info(self) -> dict:
         return self.__db.get_context()
 
+    def __get_example_selector(self) -> SemanticSimilarityExampleSelector:
+        return SemanticSimilarityExampleSelector.from_examples(
+            self.__few_shot_examples,
+            OpenAIEmbeddings(),
+            FAISS,
+            k=5,
+            input_keys=["input"],
+        )
+
     def __load_prompt(self) -> FewShotChatMessagePromptTemplate:
         human_message = HumanMessagePromptTemplate.from_template("{input}")
         ai_message = AIMessagePromptTemplate.from_template("{query}")
@@ -62,7 +73,7 @@ class SQLAgent:
             "their corresponding SQL queries."
         )
         few_shot_prompt = FewShotChatMessagePromptTemplate(
-            examples=self.__few_shot_examples,
+            example_selector=self.__get_example_selector(),
             example_prompt=example_prompt,
             input_variables=["input", "top_k", "table_info"],
         )
