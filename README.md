@@ -38,7 +38,7 @@ This enables reusability and debugging of specific prompt components.
 
 ### Clone the repository
 ```bash
-git clone https://github.com/edcalderin/Salesorder_SQlChatbot.git
+git clone https://github.com/edcalderin/Salesorder_SQLChatbot.git
 cd Salesorder_SQlChatbot
 ```
 
